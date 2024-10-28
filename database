@@ -1,0 +1,68 @@
+CREATE TABLE Student (
+    studID INT PRIMARY KEY,
+    studFName VARCHAR(50),
+    studMName VARCHAR(50),
+    studLName VARCHAR(50)
+);
+
+CREATE TABLE Question (
+    queID INT PRIMARY KEY AUTO_INCREMENT,
+    queMain TEXT,
+    queOpt1 VARCHAR(100),
+    queOpt2 VARCHAR(100),
+    queOpt3 VARCHAR(100),
+    queOpt4 VARCHAR(100),
+    queAns VARCHAR(1)
+);
+
+CREATE TABLE StudentTaker (
+    studID INT,
+    started DATETIME,
+    finished DATETIME,
+    score INT,
+    PRIMARY KEY (studID),
+    FOREIGN KEY (studID) REFERENCES Student(studID)
+);
+
+CREATE TABLE StudentAnswer (
+    stanID INT PRIMARY KEY AUTO_INCREMENT,
+    studID INT,
+    queID INT,
+    stAnswer VARCHAR(1),
+    FOREIGN KEY (studID) REFERENCES Student(studID),
+    FOREIGN KEY (queID) REFERENCES Question(queID)
+);
+
+
+
+INSERT INTO Student (studID, studFName, studMName, studLName) VALUES
+(1, 'John', 'A', 'Doe'),
+(2, 'Jane', 'B', 'Smith'),
+(3, 'Mike', 'C', 'Johnson'),
+(4, 'Sarah', 'D', 'Williams'),
+(5, 'David', 'E', 'Brown');
+
+
+INSERT INTO Question (queMain, queOpt1, queOpt2, queOpt3, queOpt4, queAns) VALUES
+('What is the capital of France?', 'Paris', 'London', 'Berlin', 'Madrid', 'A'),
+('What is 2 + 2?', '3', '4', '5', '6', 'B'),
+('What is the largest planet in our solar system?', 'Earth', 'Mars', 'Jupiter', 'Saturn', 'C'),
+('Who wrote "Romeo and Juliet"?', 'Charles Dickens', 'William Shakespeare', 'J.K. Rowling', 'Mark Twain', 'B'),
+('What is the boiling point of water?', '90°C', '100°C', '110°C', '120°C', 'B');
+
+
+INSERT INTO StudentTaker (studID, started, finished, score) VALUES
+(1, '2024-10-29 09:00:00', '2024-10-29 09:30:00', 4),
+(2, '2024-10-29 10:00:00', '2024-10-29 10:40:00', 3),
+(3, '2024-10-29 11:00:00', '2024-10-29 11:20:00', 5);
+
+
+
+INSERT INTO StudentAnswer (studID, queID, stAnswer) VALUES
+(1, 1, 'A'),
+(1, 2, 'B'),
+(2, 1, 'A'),
+(2, 2, 'A'),
+(3, 1, 'A'),
+(3, 2, 'B'),
+(3, 3, 'C');
